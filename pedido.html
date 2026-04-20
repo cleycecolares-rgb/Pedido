@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>...</title>
+
+<style>
+body {
+  background: linear-gradient(180deg, #0a0a12, #1a1a2e);
+  color: #e0e0e0;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* título */
+h1 {
+  margin-top: 80px;
+  font-size: 26px;
+}
+
+/* fotos */
+.galeria {
+  margin-top: 20px;
+}
+
+.galeria img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 5px;
+}
+
+/* botões */
+button {
+  padding: 12px 25px;
+  font-size: 16px;
+  margin: 15px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.sim {
+  background-color: #6a0dad;
+  color: white;
+}
+
+.nao {
+  background-color: #333;
+  color: white;
+  position: absolute;
+}
+
+/* balões */
+.balao {
+  position: absolute;
+  bottom: -100px;
+  width: 40px;
+  height: 60px;
+  border-radius: 50%;
+  animation: subir 6s linear infinite;
+}
+
+@keyframes subir {
+  from { transform: translateY(0); }
+  to { transform: translateY(-120vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 música -->
+<audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<h1>
+você aceita namorar comigo e ficar aqui para sempre?
+</h1>
+
+<div class="galeria">
+  <img src="foto1.jpg">
+  <img src="foto2.jpg">
+  <img src="foto3.jpg">
+</div>
+
+<button class="sim" onclick="aceitou()">sim</button>
+<button class="nao" onmouseover="fugir()">não</button>
+
+<script>
+
+// 🎵 tocar música no primeiro toque
+document.addEventListener("click", () => {
+  const musica = document.getElementById("musica");
+  musica.play();
+}, { once: true });
+
+// 💖 quando clicar em "sim"
+function aceitou() {
+  document.body.innerHTML = `
+    <h1>UHUUL! AGORA É OFICIAL, VOCÊ MINHA NAMORADAAA</h1>
+    <p>isso aqui é só o começo</p>
+  `;
+
+  // balões subindo
+  setInterval(() => {
+    const balao = document.createElement("div");
+    balao.classList.add("balao");
+    balao.style.left = Math.random() * 100 + "vw";
+    balao.style.backgroundColor = coresAleatorias();
+    document.body.appendChild(balao);
+
+    setTimeout(() => balao.remove(), 6000);
+  }, 200);
+}
+
+// 😈 botão "não" fugindo
+function fugir() {
+  const btn = document.querySelector('.nao');
+  btn.style.top = Math.random() * window.innerHeight + "px";
+  btn.style.left = Math.random() * window.innerWidth + "px";
+}
+
+// 🎨 cores dos balões
+function coresAleatorias() {
+  const cores = ["#ff4da6", "#ffd166", "#06d6a0", "#4cc9f0", "#f72585"];
+  return cores[Math.floor(Math.random() * cores.length)];
+}
+
+</script>
+
+</body>
+</html>
